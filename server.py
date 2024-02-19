@@ -427,11 +427,6 @@ def getcrypto(ticker=""):
    return outstr
 
 
-
-
-
-
-
 @app.route('/')
 def hello_world():
     outstr=render_template("html_template_root.html")
@@ -447,7 +442,6 @@ def arxiv():
                                  query_in=processed_text,
                                  arxiv_in=arxiv_pages(processed_text.replace(" ","+"))
                                  )
-
     return outstr
 
 @app.route('/BW_Colorizer', methods=['GET'])
@@ -469,7 +463,6 @@ def upload_file():
       outstr=render_template("html_template_BWColorizer_work.html",
                                  path2=fname2,
                                  )
-
       
       return outstr
 
@@ -508,9 +501,6 @@ def rg_topic():
     out=[]
     for i in range(len(datelist)):
         out.append((datelist[i].text,textlist[i].text.replace("\n","").replace("\xa0"," ")))
-    
-
-
 
     print("----------------  END  ------------------------")
     return(out)
@@ -527,9 +517,6 @@ def topic_chat():
       
     return outstr
 
-
-
-
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
       outstr=render_template("html_google_login.html",)
@@ -544,12 +531,9 @@ def notdash():
       'Amount': [4, 1, 2, 2, 4, 5,6,7,3,1]
       
    })
-   fig = px.line(df, x='x', y='Amount')
+   fig = px.line(df, x='x', y='Amount', markers=True)
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
    return render_template('notdash.html', graphJSON=graphJSON)
-
-
-
 
 if __name__ == '__main__':
    porto = int(os.environ.get("PORT", 5000))
