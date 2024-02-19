@@ -537,16 +537,14 @@ def login():
       
       return outstr
 
-app.route('/dash')
+@app.route('/dash')
 def notdash():
    df = pd.DataFrame({
-      'Fruit': ['Apples', 'Oranges', 'Bananas', 'Apples', 'Oranges', 
-      'Bananas'],
-      'Amount': [4, 1, 2, 2, 4, 5],
-      'City': ['SF', 'SF', 'SF', 'Montreal', 'Montreal', 'Montreal']
+      'x': [1,2,3,4,5,6,7,8,9,10],
+      'Amount': [4, 1, 2, 2, 4, 5,6,7,3,1]
+      
    })
-   fig = px.bar(df, x='Fruit', y='Amount', color='City', 
-      barmode='group')
+   fig = px.line(df, x='x', y='Amount')
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
    return render_template('notdash.html', graphJSON=graphJSON)
 
