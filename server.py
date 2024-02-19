@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template_string
 from flask import render_template,request
 from werkzeug.utils import secure_filename
-import pandas as pd
+
 import json
 import plotly
 import plotly.express as px
@@ -526,12 +526,10 @@ def login():
 
 @app.route('/dash')
 def notdash():
-   df = pd.DataFrame({
-      'x': [1,2,3,4,5,6,7,8,9,10],
-      'Amount': [4, 1, 2, 2, 4, 5,3,7,3,1]
+   x= [1,2,3,4,5,6,7,8,9,10]
+   Amount= [4, 1, 2, 2, 4, 5,3,7,3,1]
       
-   })
-   fig = px.line(df, x='x', y='Amount', markers=True)
+   fig = px.line(x=x, y=Amount, markers=True)
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
    return render_template('notdash.html', graphJSON=graphJSON)
 
