@@ -529,11 +529,16 @@ def login():
 def notdash():
    import pandas as pd
    import math
-   x= [i for i in range (628)]
-   Amount= [math.sin(i/100) for i in x]
-   df=pd.DataFrame({"x":x,"Amount":Amount}) 
+   x= [i/100.0 for i in range (628)]
+   sinx= [math.sin(i) for i in x]
+   cosx= [math.cos(i) for i in x]
+   x2_sinx=[2*math.sin(i) for i in x]
+   sin_2x=[math.sin(2*i) for i in x]
+    
 
-   fig = px.line(df,x="x", y="Amount", markers=True)
+   df=pd.DataFrame({"x":x,"sin x":sinx,"cos x":cosx,"2*sin x": x2_sinx,"sin 2x":sin_2x  }) 
+
+   fig = px.line(df,x="x", y=["sin x", "cos x", "2*sin x", "sin 2x"], markers=True)
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
    return render_template('notdash.html', graphJSON=graphJSON)
 
