@@ -538,7 +538,8 @@ def notdash():
 
    df=pd.DataFrame({"x":x,"sin x":sinx,"cos x":cosx,"2*sin x": x2_sinx,"sin 2x":sin_2x  }) 
 
-   fig = px.line(df,x="x", y=["sin x", "cos x", "2*sin x", "sin 2x"], markers=True)
+   fig = px.line(df,x="x", y=["sin x", "cos x", "2*sin x", "sin 2x"], markers=True,title="sin & cos")
+
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
    return render_template('html_template_plotly.html', graphJSON=graphJSON)
 
