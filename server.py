@@ -525,11 +525,15 @@ def login():
       return outstr
 
 @app.route('/dash')
+
 def notdash():
-   x= [1,2,3,4,5,6,7,8,9,10]
-   Amount= [4, 1, 2, 2, 4, 5,3,7,3,1]
-      
-   fig = px.line(x=x, y=Amount, markers=True)
+   import pandas as pd
+   import math
+   x= [i for i in range (628)]
+   Amount= [math.sin(i/100) for i in x]
+   df=pd.DataFrame({"x":x,"Amount":Amount}) 
+
+   fig = px.line(df,x="x", y="Amount", markers=True)
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
    return render_template('notdash.html', graphJSON=graphJSON)
 
