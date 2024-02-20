@@ -540,7 +540,7 @@ def notdash():
 
    fig = px.line(df,x="x", y=["sin x", "cos x", "2*sin x", "sin 2x"], markers=True)
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-   return render_template('notdash.html', graphJSON=graphJSON)
+   return render_template('html_template_plotly.html', graphJSON=graphJSON)
 
 if __name__ == '__main__':
    porto = int(os.environ.get("PORT", 5000))
