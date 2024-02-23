@@ -24,7 +24,11 @@ body, html {
 
 
   }
+  label {
+    background-color: #444444;
+    color: #cccccc;
 
+  }
   th {
     background-color: #444444;
     color: #cccccc;
@@ -64,7 +68,17 @@ body, html {
     border: 1px solid #444444;
     padding: 5px, 10px, 10px 10px;
     border-radius: 5px;
+
     
+  }
+
+  .container_box {
+    background-color: rgb(25, 25, 26);
+    border-width: 120px;
+    border-color: rgb(25, 25, 26);
+    border-style: inset;
+    padding: 500px 500px;
+    left: 250px;
     
   }
 
