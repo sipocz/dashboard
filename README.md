@@ -1,4 +1,5 @@
-# aicenter
-AI center source
+# Dashboard
+Dashboard center source
 
-(link)[https://aicenter.herokuapp.com/]
+
+(link)[https://dashboard-ocbk.onrender.com/dash]
