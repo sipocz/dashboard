@@ -1,3 +1,4 @@
+import pymongo
 from flask import Flask
 from flask import render_template_string
 from flask import render_template,request
@@ -6,6 +7,7 @@ from werkzeug.utils import secure_filename
 import json
 import plotly
 import plotly.express as px
+from  mongotest import MongoDbSupport
 
 import os
 app = Flask(__name__)
@@ -523,6 +525,22 @@ def login():
 
       
       return outstr
+@app.route("/mongo")
+
+
+def mongodb():
+   
+   _mongo_conn_=f"mongodb://127.0.0.1"
+   _DB_="DBASE"
+   _FILE_LOCATION_COLLECTION_="Collection_2"
+   mc=MongoDbSupport(_mongo_conn_)
+   mc.debug_mode()
+   mc.connect(_DB_)
+   out=f"length of {_FILE_LOCATION_COLLECTION_} : {mc.count(_FILE_LOCATION_COLLECTION_)}"  
+    
+
+   return out
+
 
 @app.route('/dash')
 
