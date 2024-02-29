@@ -529,6 +529,7 @@ def login():
 
 
 def mongodb():
+   from os import getenv
    _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
    # _mongo_conn_=f"mongodb://127.0.0.1"
    _DB_="PDF_DB"
