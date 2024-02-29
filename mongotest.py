@@ -213,7 +213,8 @@ if __name__=="__main__":
     from os import getenv
 
     _mongo_conn_=f"mongodb://127.0.0.1"
-    _DB_="DBASE"
+    _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    _PDF_DB_="PDF_DB"
     _FILE_LOCATION_COLLECTION_="Collection_2"
    
 

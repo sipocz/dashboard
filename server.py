@@ -529,14 +529,14 @@ def login():
 
 
 def mongodb():
-   
-   _mongo_conn_=f"mongodb://127.0.0.1"
-   _DB_="DBASE"
-   _FILE_LOCATION_COLLECTION_="Collection_2"
+   _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+   # _mongo_conn_=f"mongodb://127.0.0.1"
+   _DB_="PDF_DB"
+   _INCIDENT_COLLECTION_="incident"
    mc=MongoDbSupport(_mongo_conn_)
    mc.debug_mode()
    mc.connect(_DB_)
-   out=f"length of {_FILE_LOCATION_COLLECTION_} : {mc.count(_FILE_LOCATION_COLLECTION_)}"  
+   out=f"length of {_INCIDENT_COLLECTION_} : {mc.count(_INCIDENT_COLLECTION_)}"  
     
 
    return out
