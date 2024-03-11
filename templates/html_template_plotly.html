@@ -51,7 +51,7 @@
 
 
     function Send() {
-          alert("létrejott");
+          //alert("létrejott"); //debug
       //logikailag ellenoriz
           const letrejott = new Date(document.getElementById("letrejott").value);
           const folyamatban = new Date(document.getElementById("folyamatban").value);
@@ -93,7 +93,7 @@
   
   console.log(data);
   
-    fetch('/dash_post ', {
+    fetch('/dash', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

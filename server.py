@@ -541,17 +541,27 @@ def mongodb():
     
 
    return out
-
+id_num=2
 
 @app.route('/dash', methods = ['GET','POST'])
 
 def notdash():
+   global id_num
+   if request.method=="POST":
+        content = request.get_json(silent=True)
+        print(content)
+        id_num=id_num+1
+        return content     
+
+   
+   
    import pandas as pd
    import math
+   print("__id_num__:",id_num)
    x= [i/100.0 for i in range (628)]
    sinx= [math.sin(i) for i in x]
    cosx= [math.cos(i) for i in x]
-   x2_sinx=[2*math.sin(i) for i in x]
+   x2_sinx=[id_num*math.sin(i) for i in x]
    sin_2x=[math.sin(2*i) for i in x]
     
 
@@ -562,14 +572,6 @@ def notdash():
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
    return render_template('html_template_plotly.html', graphJSON=graphJSON)
 
-@app.route('/dash_post', methods = ['POST'])
-
-def dash_post():
-   import pandas as pd
-   import math
-   content = request.get_json(silent=True)
-   print(content)
-   return content
 
 
 
