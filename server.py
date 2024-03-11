@@ -543,7 +543,7 @@ def mongodb():
    return out
 
 
-@app.route('/dash')
+@app.route('/dash', methods = ['GET','POST'])
 
 def notdash():
    import pandas as pd
@@ -561,6 +561,18 @@ def notdash():
 
    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
    return render_template('html_template_plotly.html', graphJSON=graphJSON)
+
+@app.route('/dash_post', methods = ['POST'])
+
+def dash_post():
+   import pandas as pd
+   import math
+   content = request.get_json(silent=True)
+   print(content)
+   return content
+
+
+
 
 if __name__ == '__main__':
    porto = int(os.environ.get("PORT", 5000))

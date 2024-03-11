@@ -23,25 +23,93 @@
 
     <form class="m_row m_g-3" target="_blank"  >
       <div class="m_col-md-4">
+        <label style="width:200px; height: 50px ; padding:12px" for="id">Eset ID: </label>
+        <input style="width:200px; height: 50px ; padding:12px" type="text" id="id" name="id" class="m_form-control"> 
+      </div>
+
+      <div class="m_col-md-4">
         <label style="width:200px; height: 50px ; padding:12px" for="m_letrejott">Eset létrejött:  </label>
-        <input style="width:200px; height: 50px ; padding:12px"  type="datetime-local" id="m_letrejott" name="letrejott" class="m_form-control"> 
+        <input style="width:200px; height: 50px ; padding:12px"  type="datetime-local" id="letrejott" name="letrejott" class="m_form-control"> 
       </div>
 
       <div class="m_col-md-4">	
         <label style="width:200px; height: 50px ; padding:12px" for="m_folyamatban">MASDOR-ra került: </label>
-        <input style="width:200px; height: 50px ; padding:12px" type="datetime-local" id="m_folyamatban" name="folyamatban" class="m_form-control">
+        <input style="width:200px; height: 50px ; padding:12px" type="datetime-local" id="folyamatban" name="folyamatban" class="m_form-control">
       </div>
 
       <div class="m_col-md-4">
         <label style="width:200px; height: 50px ; padding:12px" for="m_felveve">Eset felvéve: </label>
-        <input style="width:200px; height: 50px ; padding:12px"  type="datetime-local" id="m_felveve" name="felveve" class="m_form-control">
+        <input style="width:200px; height: 50px ; padding:12px"  type="datetime-local" id="felveve" name="felveve" class="m_form-control">
       </div>
         
       <div class="m_col-12 m_text-end">
-        <button id="send-button" type="submit" class="m_btn m_btn-primary">Küldés</button>
+        <button type="button" onclick="Send()" class="m_btn m_btn-primary">Küldés</button>
       </div>
     </form>
   </div>
+  <script type='text/javascript'>
+
+
+    function Send() {
+          alert("létrejott");
+      //logikailag ellenoriz
+          const letrejott = new Date(document.getElementById("letrejott").value);
+          const folyamatban = new Date(document.getElementById("folyamatban").value);
+          const felveve = new Date(document.getElementById("felveve").value);
+          
+          if (!letrejott || isNaN(Date.parse(letrejott)) ||
+            !folyamatban || isNaN(Date.parse(folyamatban)) ||
+            !felveve || isNaN(Date.parse(felveve))) {
+            alert("Egy dátum hiányzik!");
+            return;
+          }
+  
+  
+    const letrejottDate = new Date(letrejott);
+        const folyamatbanDate = new Date(folyamatban);
+        const felveveDate = new Date(felveve);
+  
+  
+         if (letrejott > folyamatban || letrejott > felveve || felveve < letrejott) {
+            alert("A dátumok nem követik egymást logikailag!");
+            return;
+      }
+  
+    const id = document.getElementById("id").value;
+  
+      if (!id) {
+          alert("Nincs kitöltve az ID");
+          return;
+      }
+  
+      
+      //megkapja az adatokat a formbol
+          const data = { 
+      letrejott: document.getElementById("letrejott").value,
+      folyamatban: document.getElementById("folyamatban").value,
+      felveve: document.getElementById("felveve").value,
+    id: document.getElementById("id").value,
+      };
+  
+  console.log(data);
+  
+    fetch('/dash_post ', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+        },
+      body: JSON.stringify(data)
+    })
+  
+      .then(response => response.json())
+      .then(result => {
+        console.log('Sikeresen elküldve:', result.message);
+      })
+      .catch(error =>{
+        console.error('Nem sikerült elküldeni:', error);
+        }); 
+    }
+  </script>
   
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
