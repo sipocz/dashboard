@@ -551,6 +551,21 @@ def notdash():
         content = request.get_json(silent=True)
         print(content)
         id_num=id_num+1
+        from os import getenv
+        _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+        # _mongo_conn_=f"mongodb://127.0.0.1"
+        _DB_="PDF_DB"
+        _INCIDENT_COLLECTION_="incident"
+        mc=MongoDbSupport(_mongo_conn_)
+        mc.debug_mode()
+        mc.connect(_DB_)
+        
+        len_of_db=f"length of {_INCIDENT_COLLECTION_} : {mc.count(_INCIDENT_COLLECTION_)}"  
+        print("len_of_db:",len_of_db)
+        mc.inser_record(_INCIDENT_COLLECTION_,content)
+        mc.disconnect()
+        
+        
         return content     
 
    

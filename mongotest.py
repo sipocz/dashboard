@@ -168,6 +168,25 @@ class MongoDbSupport:
             
         return(cursor)
     
+    def inser_record(self,coll:str,jsonstr:str):
+        
+        '''
+        MONGODB adatbázisba collection feltöltése fname csv-ből
+       
+        '''
+        if self.dms:
+            print("Upload_start")
+        import pymongo
+        import pandas as pd
+    
+        #client = pymongo.MongoClient(self._connection_str_)
+        mydb = self.mydb   #DB 
+        col=mydb[coll]      #Collection
+        #print(df.head())
+        col.insert_one(jsonstr)
+        if self.dms:
+            print("exit upload")
+        return(col)
 
 
 
@@ -190,6 +209,7 @@ class MongoDbSupport:
         col.insert_one(record_def)
         return(col)
 
+    
     def list_collections(self):
 
         import pymongo
@@ -211,18 +231,20 @@ if __name__=="__main__":
     '''
 
     from os import getenv
-
+    from pymongo import MongoClient
     _mongo_conn_=f"mongodb://127.0.0.1"
     _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
     _PDF_DB_="PDF_DB"
-    _FILE_LOCATION_COLLECTION_="Collection_2"
-   
-
-
+    _FILE_LOCATION_COLLECTION_="Incident"
+    print(_mongo_conn_)
+    client = MongoClient(_mongo_conn_)
+            
+    mydb = client[_PDF_DB_]
     mc=MongoDbSupport(_mongo_conn_)
     mc.debug_mode()
-    mc.connect(_DB_)
-
+    print("Itt")
+    mc.connect(_PDF_DB_)
+    
     print(f"length of {_FILE_LOCATION_COLLECTION_} : {mc.count(_FILE_LOCATION_COLLECTION_)}")
     
     # mc.to_csv(_META_INFO_,"E:/Backup/20220508/Mongodb_pdf_file_location.csv")
