@@ -547,20 +547,25 @@ id_num=2
 
 def notdash():
     global id_num
+    local=True # local vs cloud server
+    if local==True:
+        _mongo_conn_=f"mongodb://127.0.0.1"
+        _DB_="DBASE"
+    else:  
+        _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+        _DB_="PDF_DB"    
+    _INCIDENT_COLLECTION_="Incident"
+    
+    
+    
     if request.method=="POST":
         content = request.get_json(silent=True)
         print(content)
         id_num=id_num+1
         from os import getenv
-        local=False
-        if local==True:
-            _mongo_conn_=f"mongodb://127.0.0.1"
-            _DB_="DBASE"
-        else:  
-            _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-            _DB_="PDF_DB"
+       
         
-        _INCIDENT_COLLECTION_="Incident"
+        
         mc=MongoDbSupport(_mongo_conn_)
         mc.debug_mode()
         mc.connect(_DB_)
@@ -578,18 +583,24 @@ def notdash():
         import pandas as pd
         import math
         print("__id_num__:",id_num)
-        x= [i/100.0 for i in range (628)]
-        sinx= [math.sin(i) for i in x]
-        cosx= [math.cos(i) for i in x]
-        x2_sinx=[id_num*math.sin(i) for i in x]
-        sin_2x=[math.sin(2*i) for i in x]
-    
+        mc=MongoDbSupport(_mongo_conn_)
+        mc.debug_mode()
+        mc.connect(_DB_)
+        
+        df=mc.to_df(_INCIDENT_COLLECTION_)
+        
+        df["letrejott"]=pd.to_datetime(df["letrejott"], format="%Y-%m-%dT%H:%M")
+        df["folyamatban"]=pd.to_datetime(df["folyamatban"], format="%Y-%m-%dT%H:%M")
+        df["felveve"]=pd.to_datetime(df["felveve"], format="%Y-%m-%dT%H:%M")
 
-        df=pd.DataFrame({"x":x,"sin x":sinx,"cos x":cosx,"2*sin x": x2_sinx,"sin 2x":sin_2x  }) 
-
-        fig = px.line(df,x="x", y=["sin x", "cos x", "2*sin x", "sin 2x"], markers=True,title="sin & cos")
+        df["d1"]=(df["felveve"]-df["folyamatban"])/60
+        df["d2"]=(df["folyamatban"]-df["letrejott"])/60
+        print(df.columns)
+        print(df.head())
+        fig = px.line(df,x="letrejott", y=["d1","d2"], markers=True,title="sin & cos")
 
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        #graphJSON=None
         return render_template('html_template_plotly.html', graphJSON=graphJSON)
 
 

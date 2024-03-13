@@ -72,6 +72,29 @@ class MongoDbSupport:
             print("to_csv exit")
         return(col)
 
+    def to_df(self,coll:str):
+        
+        '''
+        MONGODB adatbázisból id alapján data visszaadása
+        '''
+        # print("Mongo_start")
+        if self.dms:
+            print("to_df")
+        import pymongo
+        import pandas as pd
+    
+        mydb = self.mydb    #DB 
+        col=mydb[coll]      #Collection
+        cursor=col.find()
+        cursor_list=list(cursor)
+
+        df  = pd.DataFrame(cursor_list)
+        
+        if self.dms:
+            print("to_df exit")
+        return(df)
+
+
 # -----------------------------------
 
     def kill_collection(self,coll:str):
