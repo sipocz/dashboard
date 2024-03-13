@@ -175,7 +175,7 @@ class MongoDbSupport:
        
         '''
         if self.dms:
-            print("Upload_start")
+            print("inser_record_start")
         import pymongo
         import pandas as pd
     
@@ -185,7 +185,7 @@ class MongoDbSupport:
         #print(df.head())
         col.insert_one(jsonstr)
         if self.dms:
-            print("exit upload")
+            print("exit insert record")
         return(col)
 
 
@@ -232,10 +232,14 @@ if __name__=="__main__":
 
     from os import getenv
     from pymongo import MongoClient
-    _mongo_conn_=f"mongodb://127.0.0.1"
-    _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-    _PDF_DB_="PDF_DB"
-    _FILE_LOCATION_COLLECTION_="Incident"
+    if local==True:
+        _mongo_conn_=f"mongodb://127.0.0.1"
+        _PDF_DB_="DBASE"
+        _FILE_LOCATION_COLLECTION_="Incident"
+    else:
+        _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+        _PDF_DB_="PDF_DB"
+        _FILE_LOCATION_COLLECTION_="Incident"
     print(_mongo_conn_)
     client = MongoClient(_mongo_conn_)
             

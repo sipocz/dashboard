@@ -546,16 +546,21 @@ id_num=2
 @app.route('/dash', methods = ['GET','POST'])
 
 def notdash():
-   global id_num
-   if request.method=="POST":
+    global id_num
+    if request.method=="POST":
         content = request.get_json(silent=True)
         print(content)
         id_num=id_num+1
         from os import getenv
-        _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-        # _mongo_conn_=f"mongodb://127.0.0.1"
-        _DB_="PDF_DB"
-        _INCIDENT_COLLECTION_="incident"
+        local=False
+        if local==True:
+            _mongo_conn_=f"mongodb://127.0.0.1"
+            _DB_="DBASE"
+        else:  
+            _mongo_conn_=f"mongodb+srv://{getenv('mongo_usr')}:{getenv('mongo_pwd')}@cluster0.fuant.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+            _DB_="PDF_DB"
+        
+        _INCIDENT_COLLECTION_="Incident"
         mc=MongoDbSupport(_mongo_conn_)
         mc.debug_mode()
         mc.connect(_DB_)
@@ -565,27 +570,27 @@ def notdash():
         mc.inser_record(_INCIDENT_COLLECTION_,content)
         mc.disconnect()
         
-        
+        return "<HTML><BODY>Hello<BODY></HTML>"
         return content     
 
    
-   
-   import pandas as pd
-   import math
-   print("__id_num__:",id_num)
-   x= [i/100.0 for i in range (628)]
-   sinx= [math.sin(i) for i in x]
-   cosx= [math.cos(i) for i in x]
-   x2_sinx=[id_num*math.sin(i) for i in x]
-   sin_2x=[math.sin(2*i) for i in x]
+    if request.method=="GET":
+        import pandas as pd
+        import math
+        print("__id_num__:",id_num)
+        x= [i/100.0 for i in range (628)]
+        sinx= [math.sin(i) for i in x]
+        cosx= [math.cos(i) for i in x]
+        x2_sinx=[id_num*math.sin(i) for i in x]
+        sin_2x=[math.sin(2*i) for i in x]
     
 
-   df=pd.DataFrame({"x":x,"sin x":sinx,"cos x":cosx,"2*sin x": x2_sinx,"sin 2x":sin_2x  }) 
+        df=pd.DataFrame({"x":x,"sin x":sinx,"cos x":cosx,"2*sin x": x2_sinx,"sin 2x":sin_2x  }) 
 
-   fig = px.line(df,x="x", y=["sin x", "cos x", "2*sin x", "sin 2x"], markers=True,title="sin & cos")
+        fig = px.line(df,x="x", y=["sin x", "cos x", "2*sin x", "sin 2x"], markers=True,title="sin & cos")
 
-   graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-   return render_template('html_template_plotly.html', graphJSON=graphJSON)
+        graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        return render_template('html_template_plotly.html', graphJSON=graphJSON)
 
 
 
