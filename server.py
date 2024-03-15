@@ -547,8 +547,10 @@ id_num=2
 
 def notdash():
     global id_num
+   
+   
     local=True # local vs cloud server
-    if local==True:
+    if local==False:
         _mongo_conn_=f"mongodb://127.0.0.1"
         _DB_="DBASE"
     else:  
@@ -593,13 +595,23 @@ def notdash():
         df["folyamatban"]=pd.to_datetime(df["folyamatban"], format="%Y-%m-%dT%H:%M")
         df["felveve"]=pd.to_datetime(df["felveve"], format="%Y-%m-%dT%H:%M")
 
-        df["d1"]=(df["felveve"]-df["folyamatban"])/60
-        df["d2"]=(df["folyamatban"]-df["letrejott"])/60
+        df["MASDOR"]=(df["felveve"]-df["folyamatban"])
+        df["MASDOR"]=df["MASDOR"].values.astype("float64")
+        df["MASDOR"]=df["MASDOR"] / 60.0/1000.0/1000.0/1000.0/60.0  
+      
+        
+        df["ServiceDesk"]=((df["folyamatban"]-df["letrejott"]))
+        df["ServiceDesk"]=df["ServiceDesk"].values.astype("float64")
+        df["ServiceDesk"]=df["ServiceDesk"]/ 60.0/1000.0/1000.0/1000.0/60.0  
+
+
         df.sort_values(by=["letrejott"], inplace=True)
         print(df.columns)
+        print(df.dtypes)
         print(df.head())
-        fig = px.line(df,x="letrejott", y=["d1","d2"],labels="inc_id", markers=True,title="Incident")
-
+        fig = px.line(df,x="letrejott", y=["MASDOR","ServiceDesk"],text="inc_id", markers=False,title="Incident")
+        fig.update_traces(mode="markers+lines", hovertemplate=None)
+        fig.update_layout(hovermode="x unified")
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         #graphJSON=None
         return render_template('html_template_plotly.html', graphJSON=graphJSON)
