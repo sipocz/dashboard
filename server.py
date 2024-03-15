@@ -547,7 +547,7 @@ id_num=2
 
 def notdash():
     global id_num
-    import os   
+    from os import getenv   
    
     local=False # local vs cloud server
     if local==True:
