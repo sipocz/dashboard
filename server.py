@@ -168,6 +168,7 @@ id_num=2
 @app.route('/dash', methods = ['GET','POST'])
 
 def notdash():
+
     global id_num
     from os import getenv   
    
@@ -235,9 +236,32 @@ def notdash():
         print(df.columns)
         print(df.dtypes)
         print(df.head())
-        fig = px.line(df,x="letrejott", y=["MASDOR","ServiceDesk"],text="inc_id", markers=False,title="Incident")
+        fig = px.line(df,x="letrejott", y=["MASDOR","ServiceDesk"],text="inc_id", markers=False,title="Masdor incidensek")
         fig.update_traces(mode="markers+lines", hovertemplate=None)
         fig.update_layout(hovermode="x unified")
+        fig.update_xaxes(title_text='Incidens létrehozási időpont')
+        fig.update_yaxes(title_text='Átfutási idő [perc]')
+        fig.add_shape(
+            legendrank=1,
+            showlegend=True,
+            type="line",
+            xref="paper",
+            line=dict(dash="5px"),
+            x0=0.,
+            x1=1,
+            y0=15,
+            y1=15,
+        )
+        fig.update_layout(
+            legend=dict(
+                yanchor="top",
+                y=0.99,
+                xanchor="left",
+                x=0.01
+                )
+                )
+
+
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         #graphJSON=None
         return render_template('html_template_plotly.html', graphJSON=graphJSON)
