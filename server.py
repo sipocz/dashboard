@@ -595,9 +595,10 @@ def notdash():
 
         df["d1"]=(df["felveve"]-df["folyamatban"])/60
         df["d2"]=(df["folyamatban"]-df["letrejott"])/60
+        df.sort_values(by=["letrejott"], inplace=True)
         print(df.columns)
         print(df.head())
-        fig = px.line(df,x="letrejott", y=["d1","d2"], markers=True,title="sin & cos")
+        fig = px.line(df,x="letrejott", y=["d1","d2"],labels="inc_id", markers=True,title="Incident")
 
         graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
         #graphJSON=None
