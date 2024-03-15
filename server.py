@@ -547,10 +547,10 @@ id_num=2
 
 def notdash():
     global id_num
+    import os   
    
-   
-    local=True # local vs cloud server
-    if local==False:
+    local=False # local vs cloud server
+    if local==True:
         _mongo_conn_=f"mongodb://127.0.0.1"
         _DB_="DBASE"
     else:  
@@ -597,12 +597,12 @@ def notdash():
 
         df["MASDOR"]=(df["felveve"]-df["folyamatban"])
         df["MASDOR"]=df["MASDOR"].values.astype("float64")
-        df["MASDOR"]=df["MASDOR"] / 60.0/1000.0/1000.0/1000.0/60.0  
+        df["MASDOR"]=df["MASDOR"] /1000.0/1000.0/1000.0/60.0  
       
         
         df["ServiceDesk"]=((df["folyamatban"]-df["letrejott"]))
         df["ServiceDesk"]=df["ServiceDesk"].values.astype("float64")
-        df["ServiceDesk"]=df["ServiceDesk"]/ 60.0/1000.0/1000.0/1000.0/60.0  
+        df["ServiceDesk"]=df["ServiceDesk"]/1000.0/1000.0/1000.0/60.0  
 
 
         df.sort_values(by=["letrejott"], inplace=True)
