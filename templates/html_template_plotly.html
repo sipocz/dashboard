@@ -101,14 +101,20 @@
       body: JSON.stringify(data)
     })
   
-      .then(response => response.json())
+      .then(response => {
+        response.json();
+        window.location.reload()
+      })
       .then(result => {
         console.log('Sikeresen elküldve:', result.message);
+        
       })
       .catch(error =>{
         console.error('Nem sikerült elküldeni:', error);
         }); 
-    }
+      
+      }
+
   </script>
   
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
