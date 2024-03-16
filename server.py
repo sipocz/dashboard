@@ -248,9 +248,10 @@ def notdash():
         
         df=mc.to_df(_INCIDENT_COLLECTION_)
         
-        df["letrejott"]=pd.to_datetime(df["letrejott"], format="%Y-%m-%dT%H:%M")
-        df["folyamatban"]=pd.to_datetime(df["folyamatban"], format="%Y-%m-%dT%H:%M")
-        df["felveve"]=pd.to_datetime(df["felveve"], format="%Y-%m-%dT%H:%M")
+
+        df["letrejott"]=pd.to_datetime(df["letrejott"], format="%Y. %m. %d. %H:%M:%S")
+        df["folyamatban"]=pd.to_datetime(df["folyamatban"], format="%Y. %m. %d. %H:%M:%S")
+        df["felveve"]=pd.to_datetime(df["felveve"], format="%Y. %m. %d. %H:%M:%S")
 
         df["MASDOR"]=(df["felveve"]-df["folyamatban"])
         df["MASDOR"]=df["MASDOR"].values.astype("float64")
