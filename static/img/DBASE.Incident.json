@@ -1,0 +1,45 @@
+[{
+  "_id": {
+    "$oid": "65f21e7d1f37afa8620c349d"
+  },
+  "letrejott": "2024-03-13T06:44",
+  "folyamatban": "2024-03-13T07:45",
+  "felveve": "2024-03-13T08:29",
+  "inc_id": "kk"
+},
+{
+  "_id": {
+    "$oid": "65f220dce384d74c520e4a52"
+  },
+  "letrejott": "2024-03-11T12:00",
+  "folyamatban": "2024-03-11T12:10",
+  "felveve": "2024-03-11T12:17",
+  "inc_id": "no_0"
+},
+{
+  "_id": {
+    "$oid": "65f33606e384d74c520e4a56"
+  },
+  "letrejott": "2024-03-14T18:37",
+  "folyamatban": "2024-03-14T18:41",
+  "felveve": "2024-03-14T18:58",
+  "inc_id": "ad3"
+},
+{
+  "_id": {
+    "$oid": "65f49b5dd68e05d51a7f8484"
+  },
+  "letrejott": "2024-03-15T20:02",
+  "folyamatban": "2024-03-15T20:05",
+  "felveve": "2024-03-15T20:08",
+  "inc_id": "inc5"
+},
+{
+  "_id": {
+    "$oid": "65f4b065dccd3e994bd08465"
+  },
+  "letrejott": "2024-03-15T11:00",
+  "folyamatban": "2024-03-15T11:15",
+  "felveve": "2024-03-15T11:40",
+  "inc_id": "inc6"
+}]

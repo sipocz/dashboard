@@ -141,12 +141,41 @@ def topic_chat():
       
     return outstr
 
+
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
       outstr=render_template("html_google_login.html",)
+      return outstr
+
+
+@app.route('/uploader', methods=['GET'])
+def bwcolorizer():
+    
+    outstr=render_template("html_template_BWColorizer.html",
+                                 
+                                 )
+    return outstr
+
+
+
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file():
+   if request.method == 'POST':
+      f = request.files['file']
+      fname="./upload"+"/"+f.filename
+      fname2="./static/img/"+f.filename  
+
+      f.save(fname2)
+      outstr=render_template("html_template_BWColorizer_work.html",
+                                 path2=fname2,
+                                 )
 
       
       return outstr
+
+
+
 @app.route("/mongo")
 
 

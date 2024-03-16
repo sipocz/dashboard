@@ -12,20 +12,20 @@
     <body>
          
         <div class="container" style="padding:45px 5px 5px 5px ">
-        <h1>B&W Colorizer</h1>
-        <h2>Colorizer1</h2>
+        <h1>CSV uploader</h1>
+        <h2>Upload file!</h2>
       
         <div class="card">
-            <h5 class="text-center mb-4">Please selet a B&W photo</h5>
+            <h5 class="text-center mb-4">Please selet a data file to upload to the server!</h5>
             <form class="form-card" action = "./uploader" method = "POST" enctype = "multipart/form-data">
                 
                 <div class="row justify-content-between text-left">
                     <div class="form-group col-12 flex-column d-flex"> 
-                        <label class="form-control-label px-3">Browse a photo <span class="text-danger"> *</span>
+                        <label class="form-control-label px-3">Browse a data file: <span class="text-danger"> *</span>
                         </label> <input type="file" id="ans" name="file" placeholder="" value="Select a file:"> </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="form-group col-sm-6"> <input type="submit" class="btn-block btn-primary" value="Submit the Picture!"> </div>
+                    <div class="form-group col-sm-6"> <input type="submit" class="btn-block btn-primary" value="Submit the file"> </div>
                 </div>
             </form>
         </div>
