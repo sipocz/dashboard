@@ -65,7 +65,7 @@
           }
   
   
-    const letrejottDate = new Date(letrejott);
+        const letrejottDate = new Date(letrejott);
         const folyamatbanDate = new Date(folyamatban);
         const felveveDate = new Date(felveve);
   
@@ -84,10 +84,11 @@
   
       
       //megkapja az adatokat a formbol
-          const data = { 
-      letrejott: document.getElementById("letrejott").value,
-      folyamatban: document.getElementById("folyamatban").value,
-      felveve: document.getElementById("felveve").value,
+      alert (letrejott.toLocaleString("hu-HU"));
+      const data = { 
+      letrejott: letrejott.toLocaleString("hu-HU"),
+      folyamatban: folyamatban.toLocaleString("hu-HU"),
+      felveve: felveve.toLocaleString("hu-HU"),
       inc_id: document.getElementById("id").value,
       };
   
