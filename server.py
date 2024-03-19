@@ -263,11 +263,12 @@ def notdash():
         df["ServiceDesk"]=df["ServiceDesk"]/1000.0/1000.0/1000.0/60.0  
 
 
+        df["Day"]=df["folyamatban"].dt.dayofweek
         df.sort_values(by=["letrejott"], inplace=True)
         print(df.columns)
         print(df.dtypes)
         print(df.head())
-        fig = px.line(df,x="letrejott", y=["MASDOR","ServiceDesk"],text="inc_id", markers=False,title="Masdor incidensek")
+        fig = px.line(df,x="letrejott", y=["MASDOR","ServiceDesk"],text="inc_id", markers=False,title="Masdor incidensek",log_y=True)
         fig.update_traces(mode="markers+lines", hovertemplate=None)
         fig.update_layout(hovermode="x unified")
         fig.update_xaxes(title_text='Incidens létrehozási időpont')
