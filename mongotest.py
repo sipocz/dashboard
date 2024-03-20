@@ -191,7 +191,7 @@ class MongoDbSupport:
             
         return(cursor)
     
-    def inser_record(self,coll:str,jsonstr:str):
+    def insert_record(self,coll:str,jsonstr:str):
         
         '''
         MONGODB adatbázisba collection feltöltése fname csv-ből

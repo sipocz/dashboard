@@ -8,7 +8,7 @@ import json
 import plotly
 import plotly.express as px
 from  mongotest import MongoDbSupport
-
+from datetime import datetime, timedelta
 import os
 app = Flask(__name__)
 
@@ -194,12 +194,16 @@ def mongodb():
 
    return out
 id_num=2
+_X_INTERVALL_=None
+    
+
+
 
 @app.route('/dash', methods = ['GET','POST'])
 
 def notdash():
-
-    global id_num
+    
+    global id_num, _X_INTERVALL_
     from os import getenv   
    
     if os.getenv("mongo_remote")==None:
@@ -216,10 +220,30 @@ def notdash():
     _INCIDENT_COLLECTION_="Incident"
     
     
-    
     if request.method=="POST":
+        
+        
+
         content = request.get_json(silent=True)
-        print(content)
+        print(type(content))
+        if content.get( "xrange") !=None:
+            print("MEGVAGY")
+            if content["xrange"]=="1year":
+                _X_INTERVALL_=365
+            if content["xrange"]=="3months":
+                _X_INTERVALL_=6*31
+            
+            
+            if content["xrange"]=="1month":
+                _X_INTERVALL_=4*31
+            if content["xrange"]=="all":
+                _X_INTERVALL_=None
+
+            
+                
+            return "<HTML><BODY>Hello<BODY></HTML>"
+
+
         id_num=id_num+1
         from os import getenv
        
@@ -231,7 +255,7 @@ def notdash():
         
         len_of_db=f"length of {_INCIDENT_COLLECTION_} : {mc.count(_INCIDENT_COLLECTION_)}"  
         print("len_of_db:",len_of_db)
-        mc.inser_record(_INCIDENT_COLLECTION_,content)
+        mc.insert_record(_INCIDENT_COLLECTION_,content)
         mc.disconnect()
         
         return "<HTML><BODY>Hello<BODY></HTML>"
@@ -278,7 +302,16 @@ def notdash():
         
         df.query("h_folyamatban>6", inplace=True )
         df.query("h_folyamatban<15", inplace=True )
-        
+        if _X_INTERVALL_!=None:
+            most = datetime.now()
+            time_delta = timedelta(days=int(_X_INTERVALL_))
+            one_year_ago=most-time_delta
+            df = df.loc[df['letrejott'] > one_year_ago]
+
+
+
+
+
         
         
         
