@@ -262,12 +262,33 @@ def notdash():
         df["ServiceDesk"]=df["ServiceDesk"].values.astype("float64")
         df["ServiceDesk"]=df["ServiceDesk"]/1000.0/1000.0/1000.0/60.0  
 
+        #Melyik napon történneek a dolgok?
+        df["Day_letrejott"]=df["letrejott"].dt.dayofweek
+        df["Day_folyamatban"]=df["folyamatban"].dt.dayofweek
+        df["Day_felveve"]=df["felveve"].dt.dayofweek
+        df["h_folyamatban"]=df["folyamatban"].dt.hour
 
-        df["Day"]=df["folyamatban"].dt.dayofweek
         df.sort_values(by=["letrejott"], inplace=True)
+
+        #csak az érdekel minket, ami hétköznap volt
+        df.query("Day_letrejott<5", inplace=True )
+        df.query("Day_folyamatban<5", inplace=True )
+        df.query("Day_felveve<5", inplace=True )
+        #csak az érdekel minket, ami hétköznap volt
+        
+        df.query("h_folyamatban>6", inplace=True )
+        df.query("h_folyamatban<15", inplace=True )
+        
+        
+        
+        
+
+
+        #df.query("Day==2", inplace=True )
         print(df.columns)
         print(df.dtypes)
-        print(df.head())
+        print(df.head(100))
+
         fig = px.line(df,x="letrejott", y=["MASDOR","ServiceDesk"],text="inc_id", markers=False,title="Masdor incidensek",log_y=True)
         fig.update_traces(mode="markers+lines", hovertemplate=None)
         fig.update_layout(hovermode="x unified")
