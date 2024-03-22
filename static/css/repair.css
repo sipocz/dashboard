@@ -7,7 +7,7 @@ body {
     display: inline-block;
     opacity: 90%; 
     background-color: rgb(50, 48, 53); 
-    width:500px; height: 300px ; 
+    width:500px; height: 900px ; 
     border:1px solid green; 
     border-radius: 15px; 
 }
@@ -20,7 +20,7 @@ h3{
     margin-bottom: 20px;
 }
 
-#send-button{
+.send-button{
     padding: 5px;
     width: 150px;
     border-radius: 15px;
@@ -28,7 +28,7 @@ h3{
     color: white;
 }
 
-#send-button:hover{
+.send-button:hover{
     padding: 5px;
     width: 150px;
     border-radius: 15px;

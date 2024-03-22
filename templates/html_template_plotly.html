@@ -41,32 +41,30 @@
         <label style="width:200px; height: 50px ; padding:12px" for="m_felveve">Eset felvéve: </label>
         <input style="width:200px; height: 50px ; padding:12px"  type="datetime-local" id="felveve" name="felveve" class="m_form-control">
       </div>
-      <div class="m_col-md-4">
-        <button type="button" onclick="Send()" class="m_btn m_btn-primary">Küldés</button>
+      <div class="m_col-md-4 ">
+        <button type="button" onclick="Send()" class="send-button">Küldés</button>
       </div>
     </form>
-  </div>
   
-  <div>
+  
+  
+  
+  
     <h3>Settings</h3>
-  </div>
+  
 
-  <form class="m_row" target="_blank"  >
-    <div class="m_col-md-4"></div>">
-      <button type="button" onclick="x_time_settings('1year')" class="m_btn m_btn-primary">1 year</button>
-    </div>
-    <div class="m_col-md-4"></div>">
-    <button type="button" onclick="x_time_settings('3months')" class="m_btn m_btn-primary">3 months</button>
-    </div>
-    <div class="m_col-md-4"></div>">
-    <button type="button" onclick="x_time_settings('1month')" class="m_btn m_btn-primary">1 month</button>
-    </div>
-    <div class="m_col-md-4"></div>">
-    <button type="button" onclick="x_time_settings('all')" class="m_btn m_btn-primary">All</button>
+  <form class="m_row  m_g-3" target="_blank"  >
+    <div class="m_col-md-4">
+      <button type="button" onclick="x_time_settings('1year')"  class="send-button">1 year</button>
+    
+      <button type="button" onclick="x_time_settings('3months')"  class="send-button">3 months</button>
+      <button type="button" onclick="x_time_settings('1month')"  class="send-button">1 month</button>
+      <button type="button" onclick="x_time_settings('all')"  class="send-button">All</button>
     </div>
 
 
   </form>
+</div>
 
   <script type='text/javascript'>
 
