@@ -7,7 +7,7 @@ body {
     display: inline-block;
     opacity: 90%; 
     background-color: rgb(50, 48, 53); 
-    width:500px; height: 900px ; 
+    width:400px; height: 550px ; 
     border:1px solid green; 
     border-radius: 15px; 
 }

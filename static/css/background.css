@@ -72,6 +72,11 @@ body, html {
     
   }
 
+  table, th, td {
+    border: 1px solid black;
+  }
+
+
   .container_box {
     background-color: rgb(25, 25, 26);
     border-width: 120px;
